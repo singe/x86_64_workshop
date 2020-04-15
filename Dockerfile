@@ -31,7 +31,7 @@ RUN echo ":set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smartab" > ~/.vimr
 # Make gdb useful for asm debugging
 RUN echo -e "layout asm\nlayout regs\nset history save on" > ~/.gdbinit
 RUN echo 'PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "' > ~/.bashrc \
-  && echo 'alias make="make -f /host/build/Makefile"' >> ~/.bashrc \
+  && echo 'alias make="make -f /root/build/Makefile"' >> ~/.bashrc \
   && echo 'export PAGER=less' >> ~/.bashrc \
   && echo 'cd' >> ~/.bashrc
 
