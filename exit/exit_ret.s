@@ -1,5 +1,5 @@
-    .text
-    .globl  main
-main:
-    movl    $0, %eax  # move 0 into eax for return code
+    .text             # start code section
+    .globl  main      # make main visible externally
+main:                 # name this label main
+    mov     $0, %rax  # move 0 into rax for return code
     ret               # return

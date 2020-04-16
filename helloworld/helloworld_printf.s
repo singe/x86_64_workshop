@@ -7,7 +7,6 @@
     .section   .text
     .globl     main
 main:
-    subq    $8, %rsp
 
     leaq    .hello(%rip), %rsi
     leaq    .format(%rip), %rdi
@@ -15,5 +14,4 @@ main:
     call    printf@PLT
 
     movl    %eax, %edi
-    addq    $8, %rsp
     call    exit@PLT

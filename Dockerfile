@@ -27,7 +27,7 @@ RUN apk --no-cache add \
 RUN rm -rf /var/cache/apk/*
 
 # Don't be a psycopath
-RUN echo ":set tabstop=4 shiftwidth=4 softtabstop=0 expandtab smartab" > ~/.vimrc
+RUN echo ":set tabstop=4 shiftwidth=4 softtabstop=0 expandtab" > ~/.vimrc
 # Make gdb useful for asm debugging
 RUN echo -e "layout asm\nlayout regs\nset history save on" > ~/.gdbinit
 RUN echo 'PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "' > ~/.bashrc \

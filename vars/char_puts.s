@@ -1,7 +1,7 @@
     .text
     .globl    main
 main:
-    subq    $8, %rsp     # allocate space above stack pointer for vars
+    subq    $8, %rsp     # allocate space below stack pointer for vars
 
     xorl    %eax, %eax    # zero eax
     movw    $97, 1(%rsp)  # a = "a"
@@ -17,8 +17,8 @@ main:
     movq    %rax, %rdi
     call    puts@PLT      # puts(both)
 
-    addq    $8, %rsp
+    addq    $8, %rsp      # cleanup stack
 
     movq    $0, %rdi
-    movq    $60, %rax      # exit syscall
+    movq    $60, %rax     # exit syscall
     syscall
