@@ -9,6 +9,7 @@ run=false
 cleanup=false
 xxd=false
 strace=false
+linker=$(ldd /bin/true | grep -o "[^   ]*ld-[^ ]*" | sort -u)
 
 function usage() {
   echo """
@@ -58,7 +59,7 @@ fi
 echo "[*] Linking ..."
 if $import; then
     echo "[*] Dynamic linking with libc..."
-    ld -dynamic-linker /lib/ld-musl-x86_64.so.1 -lc -A elf_x86_$arch $base.o -e main -o $base
+    ld -dynamic-linker $linker -lc -A elf_x86_$arch $base.o -e main -o $base
 else
     ld -A elf_x86_$arch $base.o -e main -o $base
 fi
