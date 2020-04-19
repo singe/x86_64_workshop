@@ -10,13 +10,13 @@ foo:
 
     .globl  main
 main:
-    subq    $16, %rsp       # allocate variable space on stack
+    subq    $24, %rsp       # allocate variable space on stack
     movl    $0, 12(%rsp)    # int a = 0
     movl    12(%rsp), %edi  # pass a to foo
     call    foo             # foo(a) 
     movl    %eax, %edi      # copy foo's return into return code
 
-    addq    $16, %rsp       # deallocate variable space
+    addq    $24, %rsp       # deallocate variable space
 
     movq    $60, %rax       # exit syscall
     syscall
