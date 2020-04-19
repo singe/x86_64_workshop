@@ -1,0 +1,44 @@
+FROM debian:sid-slim
+LABEL maintainer="@singe at SensePost <research@sensepost.com>"
+
+# man pages are disabled in slim, this fixes that
+RUN sed -i.bak "s/^\(path-exclude \/usr\/share\/man\/\*\)$/#\1/" /etc/dpkg/dpkg.cfg.d/docker \
+  && sed -i.bak "s/^\(path-exclude \/usr\/share\/groff\/\*\)$/#\1/" /etc/dpkg/dpkg.cfg.d/docker
+
+# binutils - as & ld
+# gcc - ggc for compilation and -S
+# libc-dev - to link against
+# vim/nano - editors
+# strace - for tracing execution
+# ncurses - make gdb look better
+# gdb - debugging
+# bash - easier shell
+# man & man-pages - function lookup
+RUN apt update && apt install -y \
+  binutils \
+  gcc \
+  libc-dev \
+  vim \
+  nano \
+  strace \
+  ncurses-base \
+  gdb \
+  man-db \
+  make
+RUN rm -rf /var/cache/apk/*
+
+# Don't be a psycopath
+RUN /bin/echo -e ":set tabstop=4 shiftwidth=4 softtabstop=0 expandtab\nsyntax on" > ~/.vimrc
+# Make gdb useful for asm debugging
+RUN /bin/echo -e "layout asm\nlayout regs\nset history save on" > ~/.gdbinit
+RUN /bin/echo -e 'alias make="make -f /root/build/Makefile"\ncd' >> ~/.bashrc
+
+COPY build /root/build
+COPY exit /root/exit
+COPY helloworld /root/helloworld
+COPY vars /root/vars
+COPY if /root/if
+COPY loop /root/loop
+COPY function /root/function
+
+CMD [ "/bin/bash" ]
